@@ -19,7 +19,6 @@ export function SignUp() {
         { name, email, password, phone }
       );
       if (response.status == 200) {
-        setIslogin(true);
         localStorage.setItem("token", "Bearer " + response.data.msg);
         navigate("/home");
       }
@@ -74,7 +73,7 @@ export function SignUp() {
         </p>
       </div>
       <div className="bg-white h-3/4 pt-20 w-1/2 mr-5 lg:w-1/3 lg:h-3/4">
-        <img className="" src={Signuppic} />
+        <img src={Signuppic} />
       </div>
     </div>
   );

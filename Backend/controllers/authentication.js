@@ -9,6 +9,9 @@ dotenv.config(); //load environment variables
 
 router.post("/register", async (req, res) => {
   const { name, email, password, phone } = req.body;
+  if(!name||!email || !password|| !phone){
+    return res.status(400).json({msg:'Missing Inputs'});
+  }
   //check if user already exists
   const user = await User.findOne({ email });
   if (user) {
@@ -29,6 +32,7 @@ router.post("/register", async (req, res) => {
     //return user token
     res.status(200).json({ token: token });
   } catch (e) {
+    console.log('inside catch');
     console.log("error while creating user");
     return res.status(400).json({ msg: "error while creating user" });
   }
@@ -36,6 +40,9 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
+  if(!email || !password){
+    return res.status(400).json({msg:'Email and Password are required'});
+  }
   try {
     const isValidUser = await User.findOne({ email, password });
     if (!isValidUser) {
@@ -52,6 +59,9 @@ router.post("/login", async (req, res) => {
 
 router.post("/Adminlogin", async (req, res) => {
   const { email, password } = req.body;
+  if(!email || !password){
+    return res.status(400).json({msg:'Email and Password are required'});
+  }
   try {
     const isValidAdmin = await Admin.findOne({ email, password });
     if (!isValidAdmin) {

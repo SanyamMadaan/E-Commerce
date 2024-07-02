@@ -34,6 +34,7 @@ try{
     const productId=await product._id;
     res.status(200).json({'Product Id':productId});
 }catch(e){
+    console.log(e);
     return res.status(400).json({msg:'Error while creating product'});
 }
 })

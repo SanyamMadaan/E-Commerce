@@ -19,6 +19,7 @@ export function Admin_login(){
         if(response){
             const token=response.data.token;
             localStorage.setItem("adminToken","Bearer "+token);
+            navigate('/admindashboard')
         }
       }catch(err){
         console.log('inside catch');
@@ -39,11 +40,11 @@ return(
      <div className='h-screen bg-black p-2'>
      <h2 className='text-center text-white font-bold text-4xl mt-1'>Login as Admin</h2>
      <div className='mt-20 flex justify-center'>
-     <form className='p-5 w-1/2 lg:pb-10 pt-5  flex justify-center flex-col items-center border-2 border-x-white lg:w-1/3'  autoFocus onSubmit={handleLogin}>
-        <input className='m-5 p-2 rounded-md w-4/5' type="Email" placeholder="Email" onChange={(e)=>{
+     <form className='bg-white p-5 w-1/2 lg:pb-10 pt-5 rounded-md flex justify-center flex-col items-center border-2 border-x-white lg:w-1/3'  autoFocus onSubmit={handleLogin}>
+        <input className='border-2 border-black m-5 p-2 rounded-md w-4/5' type="Email" placeholder="Email" onChange={(e)=>{
             setEmail(e.target.value);
         }} autoFocus autofill="false" required/>
-        <input className='m-5 p-2 rounded-md w-4/5' type="password" placeholder="Password" onChange={(e)=>{
+        <input className='m-5 p-2 border-2 border-black rounded-md w-4/5' type="password" placeholder="Password" onChange={(e)=>{
             setPassword(e.target.value);
         }} autoFocus autofill="false" required/>
         <button className='m-5 p-3 rounded-md w-4/5 cursor-pointer bg-green-500 font-bold text-white  ' type="submit">Login</button>

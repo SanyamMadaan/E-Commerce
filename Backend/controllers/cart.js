@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const { Cart, Product } = require("../db");  // Adjust the path to your db models
+const { Cart, Product } = require("../db");  
 
-// GET /cart: Retrieve the user's shopping cart
+//  Retrieve  user's shopping cart
 router.get("/", async (req, res) => {
     const { userId } = req.body; // Assuming userId is passed in the request body
 
@@ -18,28 +18,33 @@ router.get("/", async (req, res) => {
     }
 });
 
-// POST /cart: Add an item to the cart
+//  Add an item to the cart
 router.post("/", async (req, res) => {
     const { product, quantity, userId } = req.body;
     try {
         let cart = await Cart.findOne({ user: userId });
 
         if (!cart) {
-            cart = new Cart({ user: userId, products: [], total: 0 });
-        }
-
-        const productIndex = cart.products.findIndex(p => p.product.toString() === product);
-
-        if (productIndex > -1) {
-            cart.products[productIndex].quantity += quantity;
+            const productDetails = await Product.findById(product);
+            cart = await Cart.create({
+                user: userId,
+                products: [{ product, quantity }],
+                total: productDetails.price * quantity
+            });
         } else {
-            cart.products.push({ product, quantity });
+            const productIndex = cart.products.findIndex(p => p.product.toString() === product);
+
+            if (productIndex > -1) {
+                cart.products[productIndex].quantity += quantity;
+            } else {
+                cart.products.push({ product, quantity });
+            }
+
+            const productDetails = await Product.findById(product);
+            cart.total += productDetails.price * quantity;
+
+            await cart.save();//saving updated cart
         }
-
-        const productDetails = await Product.findById(product);
-        cart.total += productDetails.price * quantity;
-
-        await cart.save();
 
         res.status(200).json(cart);
     } catch (e) {
@@ -48,7 +53,8 @@ router.post("/", async (req, res) => {
     }
 });
 
-// DELETE /cart/:id: Remove an item from the cart
+
+//  Remove an item from the cart
 router.delete("/:id", async (req, res) => {
     const productId = req.params.id;
     const { userId } = req.body;

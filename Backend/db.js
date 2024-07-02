@@ -19,17 +19,17 @@ const ConnectToDatabase=async()=>{
 
 //defining database schema
 const UserSchema=mongoose.Schema({
-    name:String,
-    email:String,
-    password:String,
-    phone:String
+    name:{type:String,required:true},
+    email:{type:String,required:true},
+    password:{type:String,required:true},
+    phone:{type:String,required:true},
 })
 
 const ProductsSchema=mongoose.Schema({
-    name:String,
-    price:Number,
-    description:String,
-    ImageURL:String,
+    name:{type:String,required:true},
+    price:{type:Number,required:true},
+    description:{type:String,required:true},
+    ImageURL:{type:String,required:true},
     id:String
 })
 
@@ -40,10 +40,10 @@ const AdminSchema=mongoose.Schema({
 
 const CartSchema=mongoose.Schema({
     products:[{
-        product:{type:mongoose.Schema.Types.ObjectId,ref:'Product'},
+        product:{type:mongoose.Schema.Types.ObjectId,ref:'Product',required:true},
         quantity:Number
     }],
-    total:Number,
+    total:{type:Number,default:0},
     user:{type:mongoose.Schema.Types.ObjectId,ref:'User'}
 })
 
