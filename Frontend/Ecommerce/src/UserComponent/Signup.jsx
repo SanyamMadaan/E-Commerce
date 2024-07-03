@@ -38,28 +38,32 @@ export function SignUp() {
             placeholder="Your Name"
             onChange={(e) => setName(e.target.value)}
             required
-          /><br/>
+          />
+          <br />
           <input
             className="placeholder-gray-500 text-black lg:w-3/4 m-3 border-2 p-2 border-black"
             type="text"
             placeholder="Your Email"
             onChange={(e) => setEmail(e.target.value)}
             required
-          /><br/>
+          />
+          <br />
           <input
             className="placeholder-gray-500 text-black lg:w-3/4 m-3 border-2 p-2 border-black"
             type="password"
             placeholder="Your Password"
             onChange={(e) => setPassword(e.target.value)}
             required
-          /><br/>
+          />
+          <br />
           <input
             className="placeholder-gray-500 text-black m-3 lg:w-3/4 border-2 p-2 border-black"
             type="text"
             placeholder="Your Mobile number"
             onChange={(e) => setPhone(e.target.value)}
             required
-          /><br/>
+          />
+          <br />
           <button
             className="text-white bg-black rounded-sm cursor-pointer m-3 border-2 p-2 border-black w-3/4 lg:w-3/4 lg:px-4"
             type="submit"
@@ -68,8 +72,13 @@ export function SignUp() {
           </button>
         </form>
         <p className="mt-1 m-5 lg:ml-14">
-          Already a user <span className="cursor-pointer underline text-purple-950 font-semibold"
-            onClick={() => navigate("/")}>Log in</span>
+          Already a user{" "}
+          <span
+            className="cursor-pointer underline text-purple-950 font-semibold"
+            onClick={() => navigate("/")}
+          >
+            Log in
+          </span>
         </p>
       </div>
       <div className="bg-white h-3/4 pt-20 w-1/2 mr-5 lg:w-1/3 lg:h-3/4">

@@ -18,8 +18,9 @@ export function Login() {
         { email, password }
       );
       if (response.status == 200) {
+        console.log(response);
         setIslogin(true);
-        localStorage.setItem("token", "Bearer " + response.data.msg);
+        localStorage.setItem("token", "Bearer " + response.data.token);
         navigate("/home");
       }
     } catch (e) {
