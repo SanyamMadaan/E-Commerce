@@ -8,7 +8,7 @@ export function AdminDashboard() {
 
   const getProducts = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/products");
+      const response = await axios.get("https://ecommerce-1tx1.onrender.com/products");
       setListedProducts(response.data);
       console.log(listedProducts);
     } catch (e) {
@@ -19,7 +19,7 @@ export function AdminDashboard() {
   async function deleteProduct(id) {
     try {
       const token = localStorage.getItem("adminToken");
-      const res = await axios.delete(`http://localhost:3000/products/${id}`, {
+      const res = await axios.delete(`https://ecommerce-1tx1.onrender.com/products/${id}`, {
         headers: {
           token,
         },
@@ -36,7 +36,7 @@ export function AdminDashboard() {
 
   async function editProduct(id) {
     const productTobeEdit = await axios.get(
-      `http://localhost:3000/products/${id}`
+      `https://ecommerce-1tx1.onrender.com/products/${id}`
     );
     const previosProduct = productTobeEdit.data;
 
@@ -51,7 +51,7 @@ export function AdminDashboard() {
     try {
       const token = localStorage.getItem("adminToken");
       const res = await axios.put(
-        `http://localhost:3000/products/${id}`,
+        `https://ecommerce-1tx1.onrender.com/products/${id}`,
         {
           name,
           price,

@@ -12,9 +12,10 @@ export function Login() {
 
   const LoginUser = async (e) => {
     e.preventDefault();
+    alert('It may take some time to submit due to server cold start..');
     try {
       const response = await axios.post(
-        `http://localhost:3000/authentication/login`,
+        `https://ecommerce-1tx1.onrender.com/authentication/login`,
         { email, password }
       );
       if (response.status == 200) {

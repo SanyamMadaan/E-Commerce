@@ -1,16 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const { Cart, Product } = require("../db");
-const jwt = require("jsonwebtoken");
 
 // get user's shopping cart
 router.get("/", async (req, res) => {
   try {
     const userId = req.headers.userid;
     console.log(userId);
-    const cart = await Cart.findOne({ user: userId }).populate(
-      "products.product"
-    );
+    const cart = await Cart.findOne({ user: userId }).populate("products.product");
     if (!cart) {
       console.log("no cart found");
       return res.status(200).json({ msg: "Cart not found" });
@@ -63,36 +60,47 @@ router.post("/", async (req, res) => {
   }
 });
 
-// // Remove an item from the cart
-// router.delete("/:id", authenticate, async (req, res) => {
-//     const productId = req.params.id;
+// Remove an item from the cart
+router.delete("/", async (req, res) => {
+  const { productId, userId } = req.body;
+  if (!productId || !userId) {
+    return res.status(400).json({ msg: 'Required all fields' });
+  }
 
-//     try {
-//         const cart = await Cart.findOne({ user: req.userId });
+  try {
+    const cart = await Cart.findOne({ user: userId });
 
-//         if (!cart) {
-//             return res.status(404).json({ msg: "Cart not found" });
-//         }
+    if (!cart) {
+      return res.status(404).json({ msg: "Cart not found" });
+    }
 
-//         const productIndex = cart.products.findIndex(p => p.product.toString() === productId);
+    const productIndex = cart.products.findIndex(p => p.product.toString() === productId);
+    if (productIndex === -1) {
+      return res.status(404).json({ msg: "Product not found in cart" });
+    }
 
-//         if (productIndex === -1) {
-//             return res.status(404).json({ msg: "Product not found in cart" });
-//         }
+    const productDetails = await Product.findById(productId);
+    const productQuantity = cart.products[productIndex].quantity;
 
-//         const productDetails = await Product.findById(productId);
-//         const productQuantity = cart.products[productIndex].quantity;
+    if (productQuantity > 1) {
+      cart.products[productIndex].quantity -= 1;
+      cart.total -= productDetails.price;
+    } else {
+      cart.products.splice(productIndex, 1);
+      cart.total -= productDetails.price;
+    }
 
-//         cart.total -= productDetails.price * productQuantity;
-//         cart.products.splice(productIndex, 1);
+    if (cart.total < 0) {
+      cart.total = 0;
+    }
 
-//         await cart.save();
+    await cart.save();
 
-//         res.status(200).json(cart);
-//     } catch (e) {
-//         console.log(e);
-//         res.status(400).json({ msg: "Unable to remove item from cart" });
-//     }
-// });
+    res.status(200).json(cart);
+  } catch (e) {
+    console.log(e);
+    res.status(400).json({ msg: "Unable to remove item from cart" });
+  }
+});
 
 module.exports = router;

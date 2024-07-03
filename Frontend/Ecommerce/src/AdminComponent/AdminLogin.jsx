@@ -12,7 +12,7 @@ export function Admin_login(){
         e.preventDefault();
         let response;
         try{
-        response=await axios.post("http://localhost:3000/authentication/Adminlogin",{
+        response=await axios.post("https://ecommerce-1tx1.onrender.com/authentication/Adminlogin",{
             email,
             password
         })

@@ -8,15 +8,17 @@ export function addToCartFunction() {
     const addToCart = async (product) => {
         const token = localStorage.getItem('token');
         if (token) {
-            const user_id = jwtDecode(token).userId;
+            const user_id = await jwtDecode(token).userId;
             try {
-                const response = await axios.post('http://localhost:3000/cart', {
+                const response = await axios.post('https://ecommerce-1tx1.onrender.com/cart', {
                     product_id: product,
                     user_id,
                     quantity: 1
                 });
                 if (response) {
                     navigate('/cart');
+                }else{
+                    alert('Error while adding Product');
                 }
             } catch (e) {
                 console.log(e);

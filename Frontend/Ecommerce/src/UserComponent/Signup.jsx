@@ -13,13 +13,14 @@ export function SignUp() {
 
   const SignUpUser = async (e) => {
     e.preventDefault();
+    alert('It may take some time to submit..');
     try {
       const response = await axios.post(
-        `http://localhost:3000/authentication/register`,
+        `https://ecommerce-1tx1.onrender.com/authentication/register`,
         { name, email, password, phone }
       );
       if (response.status == 200) {
-        localStorage.setItem("token", "Bearer " + response.data.msg);
+        localStorage.setItem("token", "Bearer " + response.data.token);
         navigate("/home");
       }
     } catch (e) {
