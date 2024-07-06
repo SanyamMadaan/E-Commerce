@@ -12,7 +12,7 @@ export function DeleteFromCart() {
             console.log("userId"+userId);
             console.log("Product id"+productId);
             try {
-                const response = await axios.delete('https://ecommerce-1tx1.onrender.com/cart/', {
+                const response = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/cart/`, {
                    data:{
                     productId,
                     userId

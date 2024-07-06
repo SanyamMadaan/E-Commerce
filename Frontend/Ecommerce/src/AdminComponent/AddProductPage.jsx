@@ -34,7 +34,7 @@ export function  AddProductPage() {
     const token = localStorage.getItem("adminToken");
     try {
       const res=await axios.post(
-        "https://ecommerce-1tx1.onrender.com/products/",
+        `${import.meta.env.VITE_BACKEND_URL}/products/`,
         {
           name,
           price,

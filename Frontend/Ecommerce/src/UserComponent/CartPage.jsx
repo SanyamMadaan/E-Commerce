@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import {jwtDecode} from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode'; // Import jwtDecode without destructuring
 import axios from 'axios';
 import { addToCartFunction } from "../Common/addToCartFunction";
 import { DeleteFromCart } from "../Common/DeleteFromCart";
@@ -8,7 +8,7 @@ export function CartPage() {
     const [addedItems, setAddedItems] = useState([]);
     const [totalAmount, setTotalAmount] = useState(0);
     const addToCart = addToCartFunction();
-    const deleteitem=DeleteFromCart();
+    const deleteItem = DeleteFromCart();
 
     const fetchCartItems = async () => {
         try {
@@ -16,19 +16,24 @@ export function CartPage() {
             if (token) {
                 const decodedToken = jwtDecode(token);
                 const userId = decodedToken.userId;
-                const res = await axios.get('https://ecommerce-1tx1.onrender.com/cart', {
+                const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/cart`, {
                     headers: {
                         userid: userId
                     }
                 });
                 console.log("user id is " + userId);
                 console.log(res.data);
+
+                // Filter out null products
+                const validProducts = res.data.products.filter(item => item.product !== null);
+
                 // Calculate the total amount based on current product prices
-                const currentTotal = res.data.products.reduce((total, item) => {
+                const currentTotal = validProducts.reduce((total, item) => {
                     return total + (item.product.price * item.quantity);
                 }, 0);
+
                 setTotalAmount(currentTotal); // Use calculated total
-                setAddedItems(res.data.products);
+                setAddedItems(validProducts);
             }
         } catch (e) {
             console.log("Error while fetching cart items " + e);
@@ -44,8 +49,8 @@ export function CartPage() {
         await fetchCartItems(); // Re-fetch the cart items to reflect changes
     };
 
-    const handleDeleteFromCart=async(productId)=>{
-        await deleteitem(productId);
+    const handleDeleteFromCart = async (productId) => {
+        await deleteItem(productId);
         await fetchCartItems();
     };
 
@@ -57,7 +62,7 @@ export function CartPage() {
                     <div className="lg:flex justify-between">
                         <div className="w-5/6">
                             {addedItems.map(item => (
-                                <div className="lg:w-2/3  m-3 border-2 border-black p-5 rounded-lg" key={item.product._id}>
+                                <div className="lg:w-2/3 m-3 border-2 border-black p-5 rounded-lg" key={item.product._id}>
                                     <img src={item.product.ImageURL} alt={item.product.name} />
                                     <h1 className="text-2xl uppercase mt-2 font-bold">{item.product.name}</h1>
                                     <h1 className="text-2xl font-semibold">₹{item.product.price}</h1>
@@ -66,7 +71,7 @@ export function CartPage() {
                                         <div className="bg-black border-2 border-white rounded-lg w-fit px-3">
                                             <button onClick={() => handleAddToCart(item.product._id)} className="text-white cursor-pointer ml-2 mr-2 text-xl">+</button>
                                             <button className="text-white">{item.quantity}</button>
-                                            <button onClick={() => handleDeleteFromCart(item.product._id)}className="text-white cursor-pointer ml-2 mr-2 text-xl">-</button>
+                                            <button onClick={() => handleDeleteFromCart(item.product._id)} className="text-white cursor-pointer ml-2 mr-2 text-xl">-</button>
                                         </div>
                                     </div>
                                 </div>

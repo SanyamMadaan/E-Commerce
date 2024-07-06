@@ -10,7 +10,7 @@ export function addToCartFunction() {
         if (token) {
             const user_id = await jwtDecode(token).userId;
             try {
-                const response = await axios.post('https://ecommerce-1tx1.onrender.com/cart', {
+                const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/cart`, {
                     product_id: product,
                     user_id,
                     quantity: 1

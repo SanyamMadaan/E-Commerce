@@ -11,7 +11,7 @@ export function Home() {
 
   const getProducts = async () => {
     try {
-      const response = await axios.get("https://ecommerce-1tx1.onrender.com/products/");
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/products/`);
       setProducts(response.data);
     } catch (e) {
       console.log(e);

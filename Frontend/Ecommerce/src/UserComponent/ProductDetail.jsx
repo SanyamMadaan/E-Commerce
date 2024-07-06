@@ -16,7 +16,7 @@ export default function ProductDetail() {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          `https://ecommerce-1tx1.onrender.com/products/${id}`
+          `${import.meta.env.VITE_BACKEND_URL}/products/${id}`
         );
         setProduct(response.data);
         setLoading(false);
