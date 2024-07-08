@@ -58,23 +58,26 @@ export function CartPage() {
         <div>
             {addedItems.length > 0 ? (
                 <>
-                    <h1 className="text-3xl font-semibold uppercase text-center m-2 p-2">Checkout Page</h1>
+                    <h1 className="text-3xl font-semibold uppercase text-center m-2 p-2 italic">Checkout Page</h1>
                     <div className="lg:flex justify-between">
                         <div className="w-5/6">
                             {addedItems.map(item => (
-                                <div className="lg:w-2/3 m-3 border-2 border-black p-5 rounded-lg" key={item.product._id}>
+                                <div className="lg:w-2/3 m-3  p-5 rounded-lg" key={item.product._id}>
                                     <img src={item.product.ImageURL} alt={item.product.name} />
                                     <h1 className="text-2xl uppercase mt-2 font-bold">{item.product.name}</h1>
                                     <h1 className="text-2xl font-semibold">₹{item.product.price}</h1>
                                     <h1 className="text-x break-words mb-2">{item.product.description}</h1>
-                                    <div className="flex justify-center mt-4">
+                                    <div className="mt-4">
                                         <div className="bg-black border-2 border-white rounded-lg w-fit px-3">
-                                            <button onClick={() => handleAddToCart(item.product._id)} className="text-white cursor-pointer ml-2 mr-2 text-xl">+</button>
-                                            <button className="text-white">{item.quantity}</button>
                                             <button onClick={() => handleDeleteFromCart(item.product._id)} className="text-white cursor-pointer ml-2 mr-2 text-xl">-</button>
+                                            <button className="text-white">{item.quantity}</button>
+                                            <button onClick={() => handleAddToCart(item.product._id)} className="text-white cursor-pointer ml-2 mr-2 text-xl">+</button>
+                                            
                                         </div>
                                     </div>
+                                    <hr/>
                                 </div>
+                                
                             ))}
                         </div>
                         <div className="text-red-800 m-2 text-xl lg:text-2xl font-semibold">

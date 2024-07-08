@@ -36,9 +36,9 @@ export function Home() {
     return (
       <div
         key={props.id}
-        className="bg-white flex flex-col m-2 p-2 border-2 border-black rounded-md h-min-20 cursor-pointer"
+        className="bg-white flex flex-col m-2 p-2  h-min-20 cursor-pointer"
       >
-        <img className="w-60 " src={props.image} />
+        <img src={props.image} />
         <hr />
         <h1 className="uppercase font-bold text-2xl">{props.name}</h1>
         <h1 className="font-semibold">₹{props.price}</h1>
@@ -62,7 +62,7 @@ export function Home() {
   }
 
   return (
-    <main className="bg-stone-50 h-svh">
+    <main>
         
       <div className="flex justify-between">
       <p></p>

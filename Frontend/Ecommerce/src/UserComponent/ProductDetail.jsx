@@ -33,7 +33,7 @@ export default function ProductDetail() {
   if (error) return <div>Error loading product details</div>;
 
   return (
-    <main className="bg-slate-100 h-screen">
+    <main className="bg-white h-screen">
       <div className="text-slate-100">j</div>
       <div className="bg-white lg:mx-20 lg:w-1/2 m-5 border-2 border-black rounded-md">
         <div className="text-4xl font-bold text-center mb-2">
