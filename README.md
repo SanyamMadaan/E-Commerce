@@ -1,4 +1,4 @@
-Qquadb Technologies Assignment
+<b>Quadb Technologies Assignment</b>
 
 ![image](https://github.com/SanyamMadaan/E-Commerce/assets/124160436/efdc6b4f-0563-4fb7-a149-3a8e9d434f41)
 
