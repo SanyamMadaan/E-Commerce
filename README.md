@@ -1,10 +1,4 @@
-<b><h1>SET UP </b></h1><br/>
-<h2><b>Clone Process</b></h2>
-<ol>Firstly clone the URL on your Local machine by using git clone or download the zip file<br/></ol>
-<ol>After that go to <b>backend folder</b> using command <b>cd backend</b>,then install dependencies using <b>npm install</b>.After that when all the dependencies will be downloaded then run commmand <b>node index.js</b> to run server</ol><br/>
-<ol>After that go to <b>frontend folder</b> using command <b>cd frontend/ecommerce</b>,then install frontend dependencies using <b>npm install</b> and finally run command <b>npm run dev</b> to run the project on local machine.</ol><br/>
-<ol>You can create your <b>own account</b> and explore the website by signUp and if you want to <b>signin you can use email as abc@gmail.com and password as 12345</b> and for <b>login as admin the email will be abc@gmail.com and password as assignment</b></ol><br/>
-<h2>Some Pics From User Side</h2><br/>
+Qquadb Technologies Assignment
 
 ![image](https://github.com/SanyamMadaan/E-Commerce/assets/124160436/efdc6b4f-0563-4fb7-a149-3a8e9d434f41)
 
